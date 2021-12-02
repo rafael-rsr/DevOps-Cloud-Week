@@ -16,8 +16,11 @@ Comandos executados:
 Após o Git configurado e o a conta configurada, coloquei o repositorio da automação dentro do diretorio no meu PC local e usei os seguintes comandos para commit
 
     git add . (para adicionar todos os arquivos)
+    
     git commit -m "Envio de dados da automação" (para comentar)
+    
     git push (para enviar ao repositorio remoto)
+    
     git status (para verificar se estava tudo ok)
  
 

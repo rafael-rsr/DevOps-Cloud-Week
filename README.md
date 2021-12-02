@@ -6,6 +6,7 @@ Comandos executados:
 - Comando para configurar o git a conta do github
     1. git config --global user.name "username" 
     2. git config --global user.email "email"
+    
 - Comando para clonar o repositorio do github no meu PC local
     1. git clone https://github.com/rafael0505/devopscw
 

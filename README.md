@@ -13,7 +13,7 @@ Comandos executados:
 
     git clone https://github.com/rafael0505/devopscw
 
-Após o Git configurado e o a conta configurada, coloquei o repositorio da automação dentro do diretorio no meu PC local e usei os seguintes comandos para commit
+Após o Git configurado e o a conta configurada, coloquei o repositorio da automação dentro do diretorio no meu PC local e usei os seguintes comandos para commit:
 
     git add . (para adicionar todos os arquivos)
     

@@ -10,7 +10,8 @@ Comandos executados:
 - Comando para clonar o repositorio do github no meu PC local
     1. git clone https://github.com/rafael0505/devopscw
 
-Após o Git configurado e o a conta configurada, coloquei o repositorio da automação dentro do diretorio no meu PC local e usei os seguintes comandos para commit.
+Após o Git configurado e o a conta configurada, coloquei o repositorio da automação dentro do diretorio no meu PC local e usei os seguintes comandos para commit
+
     1. git add . (para adicionar todos os arquivos)
     2. git commit -m "Envio de dados da automação" (para comentar)
     3. git push (para enviar ao repositorio remoto)

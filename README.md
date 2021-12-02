@@ -3,13 +3,13 @@
 ## **AULA 1**
 Primeiramente criamos um repositorio no github e usamos o Git para fazer o versionamento dos codigos.
 Comandos executados:
-- Comando para configurar o git a conta do github
+- Comando para configurar o git com a conta do github:
  
     git config --global user.name "username"
     
     git config --global user.email "email"
     
-- Comando para clonar o repositorio do github no meu PC loc
+- Comando para clonar o repositorio do github no meu PC loc:
 
     git clone "link do repositório"
 

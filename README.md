@@ -1,3 +1,3 @@
-# **Devops Cloud Week**
+# **DevOps Cloud Week**
 
 ## **AULA 1**

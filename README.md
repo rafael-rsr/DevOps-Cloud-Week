@@ -22,6 +22,6 @@ Após o Git configurado e o a conta configurada, coloquei o repositorio da autom
     git push (para enviar ao repositorio remoto)
     
     git status (para verificar se estava tudo ok)
- 
+    
 
     

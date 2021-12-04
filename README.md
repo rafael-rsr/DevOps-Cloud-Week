@@ -23,5 +23,5 @@ Após o Git configurado e o a conta configurada, coloquei os dados da automaçã
     
     git status (para verificar se estava tudo ok)
     
-###**AWS**
+### **AWS**
 Na AWS primeiramente criei uma instancia  Amazon Linux, para o Jenkis e outra instancias linux ubuntu para ser nosso servidor de aplicação (app-server)

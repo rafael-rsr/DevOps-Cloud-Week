@@ -44,6 +44,7 @@ Inciei uma instancia com um script pronto para instalação do Jenkis e algumas 
     sudo cat /var/lib/jenkins/secrets/initialAdminPassword
     
     - Instancia app-server
+    
 Inciei uma instancia com um script pronto para instalação do docker e suas dependencias.
 
     #!/bin/bash

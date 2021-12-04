@@ -26,7 +26,7 @@ Após o Git configurado e o a conta configurada, coloquei os dados da automaçã
 ### **AWS**
 Na AWS primeiramente criei uma instancia  Amazon Linux, para o Jenkis e outra instancias linux ubuntu para ser nosso servidor de aplicação (app-server)
 
-    - Instancia Jenkis
+- Instancia Jenkis
     
 Inciei uma instancia com um script pronto para instalação do Jenkis e algumas dependencias.
 
@@ -43,7 +43,8 @@ Inciei uma instancia com um script pronto para instalação do Jenkis e algumas 
     sudo systemctl start jenkins
     sudo cat /var/lib/jenkins/secrets/initialAdminPassword
     
-    - Instancia app-server
+
+- Instancia app-server
     
 Inciei uma instancia com um script pronto para instalação do docker e suas dependencias.
 

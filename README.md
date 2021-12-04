@@ -25,3 +25,30 @@ Após o Git configurado e o a conta configurada, coloquei os dados da automaçã
     
 ### **AWS**
 Na AWS primeiramente criei uma instancia  Amazon Linux, para o Jenkis e outra instancias linux ubuntu para ser nosso servidor de aplicação (app-server)
+    - Instancia Jenkis
+Inciei uma instancia com um script pronto para instalação do Jenkis e algumas dependencias.
+     #!/bin/bash
+    sudo yum update -y
+    sudo amazon-linux-extras install epel -y
+    sudo yum install daemonize -y
+    sudo wget -O /etc/yum.repos.d/jenkins.repo \
+        https://pkg.jenkins.io/redhat-stable/jenkins.repo
+    sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+    sudo yum upgrade
+    sudo yum install jenkins java-1.8.0-openjdk-devel -y
+    sudo systemctl daemon-reload
+    sudo systemctl start jenkins
+    sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+    
+    - Instancia app-server
+Inciei uma instancia com um script pronto para instalação do docker e suas dependencias
+    #!/bin/bash
+    sudo apt-get update
+    sudo apt-get upgrade -y
+    sudo apt-get install docker.io git -y
+    sudo usermod -aG docker ubuntu
+    sudo wget https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
+    sudo rpm -ivh amazon-ssm-agent.rpm
+    sudo systemctl enable amazon-ssm-agent
+    
+    

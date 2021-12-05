@@ -53,17 +53,36 @@ Inciei uma instancia com um script pronto para instalação do docker e suas dep
     sudo apt-get upgrade -y
     sudo apt-get install docker.io git -y
     sudo usermod -aG docker ubuntu
-    sudo wget https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
-    sudo rpm -ivh amazon-ssm-agent.rpm
-    sudo systemctl enable amazon-ssm-agent
-    
+     
 ### **Dificuldades:** 
-Os comandos do linux ainda não são automaticos. Muita coisa ainda preciso pesquisar e entender o porque usei. Mas com a ajuda da comunidade cloud e linux estou me adequando cada dia mais.
+Os comandos do linux ainda não são automaticos. Muita coisa preciso pesquisar e entender o porque usei. Mas com a ajuda da comunidade cloud e linux estou me adequando cada dia mais.
 
 ### **Observações:** 
-Essa foi minha primeira experiencia com a ferramenta GIT e Jenkins. Tudo que tinha visto até essa semana era a aprte teórica. Colacando em prpática ficou muito mais fácil o entedimento.
+Essa foi minha primeira experiencia com a ferramenta GIT e Jenkins. Tudo que tinha visto até essa semana era a parte teórica. Colacando em prática ficou muito mais fácil o entedimento.
 
 ## **AULA 2**
 
+Iniciei a instancia de nome "app-server" na AWS e clonei meu repositorio remoto.
 
-    
+  git clone "link do repositório"
+
+Executamos docker file com as intruçõespré definidas.
+
+ - dockerfile
+ 
+   FROM node:14 (para utilizar a imagem do Node do docker hub)
+   WORKDIR /usr/src/app (para trabalhar na pasta especificada)
+   COPY . . 
+   RUN npm install (instalar dependencias)
+   EXPOSE 3000 (aplicação usa a porta 3000)
+   CMD [ "npm", "start" ] 
+  
+ - Comandos executados
+   docker build -t "nome da imagem" (criar sua propria imagem baseado em instruções no dockerfile)
+   docker run -itd -p 80:3000 "nome da imagem" ( Irá rodar o container com a imagem previamente criada e expondo a aplicação na porta 80)
+   docker ps (para verificar se o container esta rodando)
+   
+ Pronto! A aplicação agora esta no ar e rodando em um container.
+ 
+ 
+

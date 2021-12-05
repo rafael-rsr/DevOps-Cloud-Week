@@ -95,5 +95,50 @@ Executamos docker file com as intruçõespré definidas.
 
 ## **AULA 3**
  
- 
+Conectei na instancia  "app-server" para fazer o login no docker hub e enviar a imagem para o repositorio de imagens remoto.
+
+- Comandos utilizados
+
+docker login( Efetua o login no Docker Hub)
+
+docker tag devops-cw rafaelrsr0505/devops-cw (Cria um "nome simbolico" da imagem)
+
+docker push rafaelrsr0505/devops-cw (para enviar a imagem ao docker hub)
+
+Agora ja temos uma imagem do Sistema no Docker Hub.
+
+Nesse momento foi necessário abrir o configurador do Jenkins para criar um Job. Porém, precisamos criar uma credencial do docker hub dentro do jenkins e baixar o plugin do docker pipelibe. Isso para que nosso script do pipeline rodar certinho.
+
+-Criação de Job Pipeline com secript para clonar o repositorio do Git Hub, buildar a imagem do docker, e eviar para o repositorio remoto. Segue script:
+
+    stages {
+        stage('Clone Repository') {
+         steps {  
+                   git branch: "main", url: 'REPO_URL'    # Alterar GIT REPO HTTP URL 
+      }
+        }
+        stage('Build Docker Image') {
+               steps{
+                   script {
+                       dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                   }
+               }
+           }
+        stage('Send image to Docker Hub') {
+               steps{
+                   script {
+                       docker.withRegistry( '', registryCredential) {
+                           dockerImage.push()
+                       }
+                   }
+               }
+           }
+        stage('Cleaning up') {
+            steps {
+                sh "docker rmi $registry:$BUILD_NUMBER"
+            }
+     }
+       }
+   }
+
 

@@ -57,9 +57,11 @@ Inciei uma instancia com um script pronto para instalação do docker e suas dep
     sudo rpm -ivh amazon-ssm-agent.rpm
     sudo systemctl enable amazon-ssm-agent
     
-### **Dificuldades:** Os comandos do linux ainda não são automaticos. Muita coisa ainda preciso pesquisar e entender o porque usei. Mas com a ajuda da comunidade cloud e linux estou me adequando cada dia mais.
+### **Dificuldades:** 
+    Os comandos do linux ainda não são automaticos. Muita coisa ainda preciso pesquisar e entender o porque usei. Mas com a ajuda da comunidade cloud e linux estou me adequando cada dia mais.
 
-### **Observações:** Essa foi minha primeira experiencia com a ferramenta GIT e Jenkins. Tudo que tinha visto até essa semana era a aprte teórica. Colacando em prpática ficou muito mais fácil o entedimento.
+### **Observações:** 
+    Essa foi minha primeira experiencia com a ferramenta GIT e Jenkins. Tudo que tinha visto até essa semana era a aprte teórica. Colacando em prpática ficou muito mais fácil o entedimento.
 
 ## **AULA 2**
 

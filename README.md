@@ -70,20 +70,28 @@ Executamos docker file com as intruçõespré definidas.
 
  - dockerfile
  
-      FROM node:14 (para utilizar a imagem do Node do docker hub);
-      WORKDIR /usr/src/app (para trabalhar na pasta especificada);
+      FROM node:14 (para utilizar a imagem do Node do docker hub)
+      
+      WORKDIR /usr/src/app (para trabalhar na pasta especificada)
+      
       COPY . . 
-      RUN npm install (instalar dependencias);
-      EXPOSE 3000 (aplicação usa a porta 3000);
+      
+      RUN npm install (instalar dependencias)
+      
+      EXPOSE 3000 (aplicação usa a porta 3000)
+      
       CMD [ "npm", "start" ] 
   
   
  - Comandos executados
-      docker build -t "nome da imagem" (criar sua propria imagem baseado em instruções no dockerfile);
-      docker run -itd -p 80:3000 "nome da imagem" ( Irá rodar o container com a imagem previamente criada e expondo a aplicação na porta 80);
-      docker ps (para verificar se o container esta rodando);
+ 
+      docker build -t "nome da imagem" (criar sua propria imagem baseado em instruções no dockerfile)
+      
+      docker run -itd -p 80:3000 "nome da imagem" ( Irá rodar o container com a imagem previamente criada e expondo a aplicação na porta 80)
+      
+      docker ps (para verificar se o container esta rodando)
    
- Pronto! A aplicação agora esta no ar e rodando em um container.
+ Pronto! A aplicação agora esta no ar e rodando em um container
  
  
 

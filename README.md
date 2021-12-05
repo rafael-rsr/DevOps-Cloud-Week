@@ -162,6 +162,8 @@ Nesse momento foi necessário abrir o configurador do Jenkins para criar um Job.
        }
    }
 
+
+
 Rodamos o Job e nesse momento automatizei o processo de build pelo Jenkins. 
 
 

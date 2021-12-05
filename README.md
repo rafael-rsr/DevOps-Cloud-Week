@@ -132,35 +132,35 @@ Nesse momento foi necessário abrir o configurador do Jenkins para criar um Job.
 
 -Criação de Job Pipeline com secript para clonar o repositorio do Git Hub, buildar a imagem do docker, e eviar para o repositorio remoto. Segue script:
 
-    stages {
-        stage('Clone Repository') {
-         steps {  
-                   git branch: "main", url: 'REPO_URL'    # Alterar GIT REPO HTTP URL 
-      }
+       stages {
+           stage('Clone Repository') {
+            steps {  
+                      git branch: "main", url: 'REPO_URL'    # Alterar GIT REPO HTTP URL 
+         }
+           }
+           stage('Build Docker Image') {
+                  steps{
+                      script {
+                          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                      }
+                  }
+              }
+           stage('Send image to Docker Hub') {
+                  steps{
+                      script {
+                          docker.withRegistry( '', registryCredential) {
+                              dockerImage.push()
+                          }
+                      }
+                  }
+              }
+           stage('Cleaning up') {
+               steps {
+                   sh "docker rmi $registry:$BUILD_NUMBER"
+               }
         }
-        stage('Build Docker Image') {
-               steps{
-                   script {
-                       dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                   }
-               }
-           }
-        stage('Send image to Docker Hub') {
-               steps{
-                   script {
-                       docker.withRegistry( '', registryCredential) {
-                           dockerImage.push()
-                       }
-                   }
-               }
-           }
-        stage('Cleaning up') {
-            steps {
-                sh "docker rmi $registry:$BUILD_NUMBER"
-            }
-     }
-       }
-   }
+          }
+      }
 
 
 

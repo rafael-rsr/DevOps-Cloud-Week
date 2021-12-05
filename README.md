@@ -58,7 +58,7 @@ Inciei uma instancia com um script pronto para instalação do docker e suas dep
 Os comandos do linux ainda não são automaticos. Muita coisa preciso pesquisar e entender o porque usei. Mas com a ajuda da comunidade cloud e linux estou me adequando cada dia mais.
 
 ### **Observações:** 
-Essa foi minha primeira experiencia com a ferramenta GIT e Jenkins. Tudo que tinha visto até essa semana era a parte teórica. Colacando em prática ficou muito mais fácil o entedimento.
+Essa foi minha primeira experiencia com a ferramenta GIT e Jenkins. Tudo que tinha visto até essa semana era a parte teórica. Colacando em prática ficou muito mais fácil o entendimento.
 
 ## **AULA 2**
 
@@ -93,17 +93,38 @@ Executamos docker file com as intruçõespré definidas.
    
 ### Pronto! A aplicação agora esta no ar e rodando em um container
 
+### **Dificuldades:** 
+Com a experiencia da primeira aula, nao houve muitas dificuldades na aula 2. O entendimento melhor do docker virá com as práticas da ferramenta.
+
+### **Observações:** 
+Essa foi minha primeira experiencia com a ferramenta docker. Tudo que tinha visto até essa semana era a parte teórica. Colacando em prática ficou muito mais fácil o entendimento.
+
+
 ## **AULA 3**
+
+Conectei na instancia Jenkis para instalar o Git e o Docker. Comandos executados:
+
+       sudo yum update -y (Atualiza os softwares disponiveis para o sistema)
+
+       sudo yum install git -y (Instala o git)
+
+       sudo amazon-linux-extras install docker -y (Instala o docker)
+
+       sudo systemctl start docker (Inicia o docker)
+
+       sudo usermod -aG docker jenkins (Da permissões ao Jenkins para rodar comandos Docker)
+
+       sudo systemctl restart jenkins (Reinicia o Jenkins para aplicar as permissões anteriormente adicionadas)
  
 Conectei na instancia  "app-server" para fazer o login no docker hub e enviar a imagem para o repositorio de imagens remoto.
 
 - Comandos utilizados
 
-docker login( Efetua o login no Docker Hub)
+      docker login( Efetua o login no Docker Hub)
 
-docker tag devops-cw rafaelrsr0505/devops-cw (Cria um "nome simbolico" da imagem)
+      docker tag devops-cw rafaelrsr0505/devops-cw (Cria um "nome simbolico" da imagem)
 
-docker push rafaelrsr0505/devops-cw (para enviar a imagem ao docker hub)
+      docker push rafaelrsr0505/devops-cw (para enviar a imagem ao docker hub)
 
 Agora ja temos uma imagem do Sistema no Docker Hub.
 
@@ -140,5 +161,7 @@ Nesse momento foi necessário abrir o configurador do Jenkins para criar um Job.
      }
        }
    }
+
+Rodamos o Job e nesse momento automatizei o processo de build pelo Jenkins. 
 
 

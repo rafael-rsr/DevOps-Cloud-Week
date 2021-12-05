@@ -92,6 +92,8 @@ Executamos docker file com as intruçõespré definidas.
       docker ps (para verificar se o container esta rodando)
    
 ### Pronto! A aplicação agora esta no ar e rodando em um container
+
+## **AULA 3**
  
  
 

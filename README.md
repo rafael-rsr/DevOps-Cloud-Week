@@ -64,7 +64,7 @@ Essa foi minha primeira experiencia com a ferramenta GIT e Jenkins. Tudo que tin
 
 Iniciei a instancia de nome "app-server" na AWS e clonei meu repositorio remoto.
 
-  git clone "link do repositório"
+      git clone "link do repositório"
 
 Executamos docker file com as intruçõespré definidas.
 

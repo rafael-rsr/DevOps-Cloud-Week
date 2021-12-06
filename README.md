@@ -13,7 +13,7 @@ Comandos executados:
 
     git clone "link do repositório"
 
-Após o Git configurado e o a conta configurada, coloquei os dados da automação dentro do diretorio no meu PC local e usei os seguintes comandos para commit:
+Após o Git e a conta configurada, coloquei os dados da automação dentro do diretorio no meu PC local e usei os seguintes comandos para commit:
 
     git add . (para adicionar todos os arquivos)
     
@@ -24,7 +24,7 @@ Após o Git configurado e o a conta configurada, coloquei os dados da automaçã
     git status (para verificar se estava tudo ok)
     
 ### **AWS**
-Na AWS primeiramente criei uma instancia  Amazon Linux, para o Jenkis e outra instancias linux ubuntu para ser nosso servidor de aplicação (app-server)
+Na AWS primeiramente criei uma instancia Amazon Linux, para o Jenkis e uma outra instancia linux ubuntu, para ser nosso servidor de aplicação (app-server)
 
 - Instancia Jenkis
     
@@ -41,8 +41,8 @@ Inciei uma instancia com um script pronto para instalação do Jenkis e algumas 
     sudo yum install jenkins java-1.8.0-openjdk-devel -y
     sudo systemctl daemon-reload
     sudo systemctl start jenkins
-    sudo cat /var/lib/jenkins/secrets/initialAdminPassword
-    
+   
+   
 
 - Instancia app-server
     
@@ -55,7 +55,7 @@ Inciei uma instancia com um script pronto para instalação do docker e suas dep
     sudo usermod -aG docker ubuntu
      
 ### **Dificuldades:** 
-Os comandos do linux ainda não são automaticos. Muita coisa preciso pesquisar e entender o porque usei. Mas com a ajuda da comunidade cloud e linux estou me adequando cada dia mais.
+Os comandos do linux ainda não são automaticos. Algumas coisas preciso pesquisar e entender o porque usei. Mas com a ajuda da comunidade cloud e linux estou me adequando cada dia mais.
 
 ### **Observações:** 
 Essa foi minha primeira experiencia com a ferramenta GIT e Jenkins. Tudo que tinha visto até essa semana era a parte teórica. Colacando em prática ficou muito mais fácil o entendimento.

@@ -128,7 +128,7 @@ Conectei na instancia  "app-server" para fazer o login no docker hub e enviar a 
 
 Agora ja temos uma imagem do Sistema no Docker Hub.
 
-Nesse momento foi necessário abrir o configurador do Jenkins para criar um Job. Porém, precisamos criar uma credencial do docker hub dentro do jenkins e baixar o plugin do docker pipelibe. Isso para que nosso script do pipeline rodar certinho.
+Nesse momento foi necessário abrir o configurador do Jenkins para criar um Job. Porém, precisamos criar uma credencial do docker hub dentro do jenkins e baixar o plugin do docker pipeline. Isso para que nosso script do pipeline rode certinho.
 
 -Criação de Job Pipeline com secript para clonar o repositorio do Git Hub, buildar a imagem do docker, e eviar para o repositorio remoto. Segue script:
 

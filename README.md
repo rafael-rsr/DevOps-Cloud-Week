@@ -166,4 +166,77 @@ Nesse momento foi necessário abrir o configurador do Jenkins para criar um Job.
 
 Rodamos o Job e nesse momento automatizei o processo de build pelo Jenkins. 
 
+### CodeDeploy Aula 3.1
+
+- Conectei no painel AWS para criar funções dentro do IAM.
+
+- Criei uma função de CodeDeploy e uma outra para EC2 de full access.
+
+- Fui na instancia app-server e mudei a função do IAM para função criada para EC2.
+
+- Conectei na instancia do Jenkins para rodar as dependencias do ColdDeploy
+
+   sudo apt install ruby-full -y (Instala o Ruby)
+   
+   wget https://aws-codedeploy-us-east-2.s3.us-east-2.amazonaws.com/latest/install (Faz o download do agente do codedeploy)
+   
+   chmod +x ./install  (Da permissão de execução para o arquivo)
+   
+   sudo ./install auto > /tmp/logfile  (executa a instalação do agente)
+   
+   sudo service codedeploy-agent status (Verifica se o agente foi iniciado corretamente)
+   
+   
+   
+- No painel da AWS criei um Bucket S3 para armazenamento de objetos para upar minha aplicação compactada (.zip).
+
+- No painel da AWS entrei na função CodeDeploy > Aplicativos.
+
+- Criei um aplicativo para plataforma de computação EC2.
+
+- Criei um grupo de implantação com a função de serviço criada anteriormente e congiguração de instancia EC2 com a tag name criada para "app-server"
+
+
+Agora precisei criar os scripts para o deploy. Os arquivos são "appspec.yml" , "start-container.sh", "stop-container.sh"
+ 
+ APPSPEC.YML
+ 
+        version: 0.0
+    os: linux
+    hooks:
+      AfterInstall:
+        - location: Scripts/stop-container.sh
+      ApplicationStart:
+        - location: Scripts/start-container.sh
+
+
+START-CONTAINER.SH
+
+       #!/bin/bash
+
+      docker run -itd -p 80:3000 rafael0505/devops-cw:develop
+
+
+
+STOP-CONTAINER.SH
+
+      #!/bin/bash
+
+     docker rm -f $(docker ps -qa) || true
+     
+     docker rmi rafael0505/devops-cw:develop || true
+     
+
+- Após os arquivos criados e devidamentes inseridos no diretorio da automação. Fiz o commit para meu repositorio remoto do GitHub.
+
+- Entrei no painel do Jenkins para alterar duas linhas do comando na pipeline, tendo em vista que agora demos um nome para a tag da versão criada (develop). Então ficou assim:
+
+   dockerImage = docker.build registry + ":develop"
+   
+   sh "docker rmi $registry:develop"
+ 
+- Rodei o JOB novamente para o DockerHub reconhecer essa nova tag "develop".
+
+
+   
 

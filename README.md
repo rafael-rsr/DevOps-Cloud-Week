@@ -1,15 +1,15 @@
 # **DevOps Cloud Week**
 
 ## **AULA 1**
-Primeiramente criamos um repositorio no github e usamos o Git para fazer o versionamento dos codigos.
+Primeiramente criamos um repositorio no gitlab e usamos o Git para fazer o versionamento dos codigos.
 Comandos executados:
-- Comando para configurar o git com a conta do github:
+- Comando para configurar o git com a conta do gitlab:
  
     git config --global user.name "username"
     
     git config --global user.email "email"
     
-- Comando para clonar o repositorio do github no meu PC loc:
+- Comando para clonar o repositorio do gitlab no meu PC loc:
 
     git clone "link do repositório"
 
@@ -109,6 +109,107 @@ Conectei na instancia Jenkis para instalar o Git e o Docker. Comandos executados
 
        sudo systemctl start docker (Inicia o docker)
 
+1
+# **DevOps Cloud Week**
+2
+​
+3
+## **AULA 1**
+4
+Primeiramente criamos um repositorio no gitlab e usamos o Git para fazer o versionamento dos codigos.
+5
+Comandos executados:
+6
+- Comando para configurar o git com a conta do gitlab:
+7
+ 
+8
+    git config --global user.name "username"
+9
+    
+10
+    git config --global user.email "email"
+11
+    
+12
+- Comando para clonar o repositorio do gitlab no meu PC loc:
+13
+​
+14
+    git clone "link do repositório"
+15
+​
+16
+Após o Git e a conta configurada, coloquei os dados da aplicação dentro do diretorio no meu PC local e usei os seguintes comandos para commit:
+17
+​
+18
+    git add . (para adicionar todos os arquivos)
+19
+    
+20
+    git commit -m "Envio de dados da aplicação" (para comentar)
+21
+    
+22
+    git push (para enviar ao repositorio remoto)
+23
+    
+24
+    git status (para verificar se estava tudo ok)
+25
+    
+26
+### **AWS**
+27
+Na AWS primeiramente criei uma instancia Amazon Linux, para o Jenkis e uma outra instancia linux ubuntu, para ser nosso servidor de aplicação (app-server)
+28
+​
+29
+- Instancia Jenkis
+30
+    
+31
+Inciei uma instancia com um script pronto para instalação do Jenkis e algumas dependencias.
+32
+​
+33
+     #!/bin/bash
+34
+    sudo yum update -y
+35
+    sudo amazon-linux-extras install epel -y
+36
+    sudo yum install daemonize -y
+37
+    sudo wget -O /etc/yum.repos.d/jenkins.repo \
+38
+        https://pkg.jenkins.io/redhat-stable/jenkins.repo
+39
+    sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+40
+    sudo yum upgrade
+41
+    sudo yum install jenkins java-1.8.0-openjdk-devel -y
+42
+    sudo systemctl daemon-reload
+43
+    sudo systemctl start jenkins
+44
+   
+45
+   
+46
+​
+47
+- Instancia app-server
+48
+    
+49
+Inciei uma instancia com um script pronto para instalação do docker e suas dependencias.
+50
+​
+
        sudo usermod -aG docker jenkins (Da permissões ao Jenkins para rodar comandos Docker)
 
        sudo systemctl restart jenkins (Reinicia o Jenkins para aplicar as permissões anteriormente adicionadas)
@@ -127,7 +228,7 @@ Agora ja temos uma imagem do Sistema no Docker Hub.
 
 Nesse momento foi necessário abrir o configurador do Jenkins para criar um Job. Porém, precisamos criar uma credencial do docker hub dentro do jenkins e baixar o plugin do docker pipeline. Isso para que nosso script do pipeline rode certinho.
 
--Criação de Job Pipeline com secript para clonar o repositorio do Git Hub, buildar a imagem do docker, e eviar para o repositorio remoto. Segue script:
+-Criação de Job Pipeline com secript para clonar o repositorio do GitLab, buildar a imagem do docker, e eviar para o repositorio remoto. Segue script:
 
        stages {
            stage('Clone Repository') {
@@ -224,7 +325,7 @@ STOP-CONTAINER.SH
      docker rmi rafael0505/devops-cw:develop || true
      
 
-- Após os arquivos criados e devidamentes inseridos no diretorio da aplicação, fiz o commit para meu repositorio remoto do GitHub.
+- Após os arquivos criados e devidamentes inseridos no diretorio da aplicação, fiz o commit para meu repositorio remoto do GitLab.
 
 - Entrei no painel do Jenkins para alterar duas linhas do comando na pipeline, tendo em vista que agora demos um nome para a tag da versão criada (develop). Então ficou assim:
 
@@ -246,6 +347,106 @@ Agora nosso laboratorio esta assim: Qualquer alteração feita na aplicação pe
 Nessa aula usei na pratica pela primeira vez o ColdDeploy, e ver ele funcionando, mesmo não automatizado ainda, foi muito bacana. São ferramentas que impressionam qualquer profissional de T.I que esta buscando novos conhecimentos.
 
 ## **AULA 4**
+
+
+### AUTOMATIZANDO DEPLOY
+
+- No painel do Jenkins e instalamos o plugin AWS CodeDeploy.
+
+- No painel da AWS, entrei em IAM e criei um novo usuario com acesso programatico para que o Jenkins se autentique no CodeDeploy.
+
+- Na pipeline do Jenkins adicionamos uma etapa de deploy. Ficou assim:
+
+pipeline {
+    agent any
+
+    environment {
+		registry = "DOCKER_USER/DOCKER_HUB_REPO"    # Alterar
+        registryCredential = "dockerhub_id"
+        dockerImage = ''
+    }
+
+    stages {
+    	stage('Clone Repository') {
+    		steps {  
+                git branch: "main", url: 'GIT_URL'   # Alterar
+			}
+    	}
+    	stage('Build Docker Image') {
+            steps{
+                script {
+                    dockerImage = docker.build registry + ":develop"
+                }
+            }
+        }
+    	stage('Send image to Docker Hub') {
+            steps{
+                script {
+                    docker.withRegistry( '', registryCredential) {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+    	stage('Deploy') {
+		    steps{
+                step([$class: 'AWSCodeDeployPublisher',
+                    applicationName: 'app01-application',                          # Alterar
+                    awsAccessKey: "AKIAZTOKAUMQYNQ37WP5",                          # Alterar
+                    awsSecretKey: "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",      # Alterar
+                    credentials: 'awsAccessKey',
+                    deploymentGroupAppspec: false,
+                    deploymentGroupName: 'service',                                # Alterar
+                  TODO O PROCESSO  deploymentMethod: 'deploy',
+                    excludes: '',
+                    iamRoleArn: '',
+                    includes: '**',
+                    pollingFreqSec: 15,
+                    pollingTimeoutSec: 600,
+                    proxyHost: '',
+                    proxyPort: 0,
+                    region: 'us-east-2',
+                    s3bucket: 'devopscloudweek2-app01',                            # Alterar
+                    s3prefix: '', 
+                    subdirectory: '',
+                    versionFileName: '',
+                    waitForCompletion: true])
+            }
+        }
+    	stage('Cleaning up') {
+        	steps {
+            	sh "docker rmi $registry:develop"
+        	}
+		}
+    }
+}
+
+
+
+### AUTOMATIZANDO TODO PROCESSO APÓS O COMMIT DO CODIGO.
+
+- Instalei o plugin do GitLab no painel do Jenkins.
+
+- Configurei integração do GitLab com o Jenkins.
+
+- Criei um SecretToken do job do Jenkins para o GitLab
+
+- Configurei esse sercret token e URL dentro de Webhooks no GitLab
+
+Agora o dev faz qualquer alteração no código, faz o commit para o repositorio remoto e o processo de clonar, de build do imagem docker, do envio da imagem para o docker hub e o deploy dessa imagem são realizados automaticamente pela pipeline do Jenkins.
+
+###PRONTO AGORA TODO O PROCESSO ESTA AUTOMATIZADO.
+
+
+### **Dificuldades:** 
+Nessa quarta aula tive dificuldades pois usamos uma instancia free tier (t2.micro) para realizar o laboratorio. Essa instancia tinha apenas 1 CPU e 1GB de memoria. Já no primeiro envio, durante a automatização a instancia travou sendo necessário interromper ela no painel da AWS e iniciar novamente.
+
+Após isso, minha pipeline parou de funcionar. Não conectava mais com o docker. Sendo assim, comecei a revisar todos os processos, codigos, keys e usuaurios. E não conseguia achar o que de fato eu tinha feito de errado. Enfim, depois de alguns minutos revendo tudo e nao achando nada, lembrei que após reinciar a instancia do Jenkins eu não iniciei o serviço do docker no linux. Fiz o pocedimento (sudo systemctl start docker) para iniciar o docker e tudo voltou ao normal.
+
+### **Conclusão:** 
+
+Foi uma imersão de treinamentos que duraram 4 dias. Realizei laboratorios com serviços e ferramentas open source, onde até na AWS usei instancias free tier para realizar todos os testes. Aprendi muito vendo todas as ferramentas na prática. Saio desse projeto agregando muito conhecimento e vontade de estar nessa área em breve. Agora é realizar a especialização DevOps e continuar na busca de uma oportunidade para entrar de vez nesse mundo. A decisão já esta tomada, quero ser um DevOps.
+
 
 
 

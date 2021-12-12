@@ -9,7 +9,7 @@ Comandos executados:
     
     git config --global user.email "email"
     
-- Comando para clonar o repositorio do gitlab no meu PC loc:
+- Comando para clonar o repositorio do gitlab no meu PC local:
 
     git clone "link do repositório"
 

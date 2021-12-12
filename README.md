@@ -239,6 +239,7 @@ STOP-CONTAINER.SH
 - Nesse momento ele ja vai realizar o deploy com a nova tag "develop" tbm.
 
 No final dessa aula, criamos o deploy e preparamos o Jenkis para realizar a configuração da atuomatização do CodeDeploy. 
+
 Agora nosso laboratorio esta assim: Qualquer alteração feita na aplicação pelo desenvolvedor, o DevOps teria que entrar no Jenkis, iniciar um novo Job e depois iniciar um processo de implantação do CodeDeploy na plataforma da AWS.
 
 ### **Observações:** 

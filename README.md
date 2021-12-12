@@ -435,7 +435,7 @@ pipeline {
 
 Agora o dev faz qualquer alteração no código, faz o commit para o repositorio remoto e o processo de clonar, de build do imagem docker, do envio da imagem para o docker hub e o deploy dessa imagem são realizados automaticamente pela pipeline do Jenkins.
 
-###PRONTO AGORA TODO O PROCESSO ESTA AUTOMATIZADO.
+### PRONTO AGORA TODO O PROCESSO ESTA AUTOMATIZADO.
 
 
 ### **Dificuldades:** 

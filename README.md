@@ -13,11 +13,11 @@ Comandos executados:
 
     git clone "link do repositório"
 
-Após o Git e a conta configurada, coloquei os dados da automação dentro do diretorio no meu PC local e usei os seguintes comandos para commit:
+Após o Git e a conta configurada, coloquei os dados da aplicação dentro do diretorio no meu PC local e usei os seguintes comandos para commit:
 
     git add . (para adicionar todos os arquivos)
     
-    git commit -m "Envio de dados da automação" (para comentar)
+    git commit -m "Envio de dados da aplicação" (para comentar)
     
     git push (para enviar ao repositorio remoto)
     
@@ -92,9 +92,6 @@ Executamos docker file com as intruçõespré definidas.
       docker ps (para verificar se o container esta rodando)
    
 ### Pronto! A aplicação agora esta no ar e rodando em um container
-
-### **Dificuldades:** 
-Com a experiencia da primeira aula, nao houve muitas dificuldades na aula 2. O entendimento melhor do docker virá com as práticas da ferramenta.
 
 ### **Observações:** 
 Essa foi minha primeira experiencia com a ferramenta docker. Tudo que tinha visto até essa semana era a parte teórica. Colacando em prática ficou muito mais fácil o entendimento.
@@ -227,7 +224,7 @@ STOP-CONTAINER.SH
      docker rmi rafael0505/devops-cw:develop || true
      
 
-- Após os arquivos criados e devidamentes inseridos no diretorio da automação. Fiz o commit para meu repositorio remoto do GitHub.
+- Após os arquivos criados e devidamentes inseridos no diretorio da aplicação, fiz o commit para meu repositorio remoto do GitHub.
 
 - Entrei no painel do Jenkins para alterar duas linhas do comando na pipeline, tendo em vista que agora demos um nome para a tag da versão criada (develop). Então ficou assim:
 
@@ -236,6 +233,26 @@ STOP-CONTAINER.SH
    sh "docker rmi $registry:develop"
  
 - Rodei o JOB novamente para o DockerHub reconhecer essa nova tag "develop".
+
+- Voltamos no CodeDeploy da AWS para criar uma nova implantação direcionando o local da revisão para a uri do bucket s3 criado anteriormente.
+
+- Nesse momento ele ja vai realizar o deploy com a nova tag "develop" tbm.
+
+No final dessa aula, criamos o deploy e preparamos o Jenkis para realizar a configuração da atuomatização do CodeDeploy. 
+Agora nosso laboratorio esta assim: Qualquer alteração feita na aplicação pelo desenvolvedor, o DevOps teria que entrar no Jenkis, iniciar um novo Job e depois iniciar um processo de implantação do CodeDeploy na plataforma da AWS.
+
+### **Observações:** 
+Nessa aula usei na pratica pela primeira vez o ColdDeploy, e ver ele funcionando, mesmo não automatizado ainda, foi muito bacana. São ferramentas que impressionam qualquer profissional de T.I que esta buscando novos conhecimentos.
+
+## **AULA 4**
+
+
+
+
+
+
+
+
 
 
    

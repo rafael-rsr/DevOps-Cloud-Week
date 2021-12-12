@@ -357,6 +357,9 @@ Nessa aula usei na pratica pela primeira vez o ColdDeploy, e ver ele funcionando
 
 - Na pipeline do Jenkins adicionamos uma etapa de deploy. Ficou assim:
 
+
+
+
 pipeline {
     agent any
 
@@ -420,6 +423,10 @@ pipeline {
 		}
     }
 }
+
+
+
+
 
 
 

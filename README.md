@@ -233,7 +233,7 @@ STOP-CONTAINER.SH
 
 - Voltamos no CodeDeploy da AWS para criar uma nova implantação direcionando o local da revisão para a uri do bucket s3 criado anteriormente.
 
-- Nesse momento ele ja vai realizar o deploy com a nova tag "develop" tbm.
+- Nesse momento ele ja vai realizar o deploy com a nova tag "develop" também.
 
 No final dessa aula, criamos o deploy e preparamos o Jenkis para realizar a configuração da atuomatização do CodeDeploy. 
 
